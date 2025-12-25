@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Christmas Wheel 🎄</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #111;
+        color: white;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    #wheel {
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        border: 8px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: bold;
+        background: conic-gradient(
+            #e74c3c 0deg 90deg,
+            #2ecc71 90deg 180deg,
+            #3498db 180deg 270deg,
+            #f1c40f 270deg 360deg
+        );
+        transition: transform 3s cubic-bezier(.17,.67,.38,1);
+    }
+
+    #result {
+        margin-top: 30px;
+        font-size: 26px;
+        display: none;
+    }
+
+    .green {
+        background: #0b6623 !important;
+    }
+</style>
+</head>
+<body>
+
+<h1>Tap to Spin 🎁</h1>
+<div id="wheel">SPIN</div>
+<div id="result"></div>
+
+<script>
+const names = ["Jana", "Gal", "Leon", "Nega"];
+const wheel = document.getElementById("wheel");
+const result = document.getElementById("result");
+
+let spun = false;
+
+wheel.addEventListener("click", () => {
+    if (spun) return;
+    spun = true;
+
+    const winnerIndex = Math.floor(Math.random() * names.length);
+    const spins = 5 * 360 + winnerIndex * (360 / names.length);
+
+    wheel.style.transform = `rotate(${spins}deg)`;
+
+    setTimeout(() => {
+        document.body.classList.add("green");
+        result.textContent = `🎉 ${names[winnerIndex]} 🎉`;
+        result.style.display = "block";
+    }, 3000);
+});
+</script>
+
+</body>
+</html>
